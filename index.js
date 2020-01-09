@@ -1,7 +1,10 @@
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const app = express();
+//.env Variables
 const mongopass = process.env.MONGOPASSWORD;
+const port = process.env.PORT;
+
 async function main() {
   const uri = `mongodb+srv://Saurabh:${mongopass}@freecluster-hlxpp.mongodb.net/test?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, {
@@ -169,5 +172,4 @@ async function deleteListingsScrapedBeforeDate(client, date) {
     .deleteMany({ last_scraped: { $lt: date } });
   console.log(`${result.deletedCount} documents(s) was/were deleted`);
 }
-
-app.listen(5000);
+app.listen(port);
