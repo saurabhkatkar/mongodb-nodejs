@@ -1,10 +1,9 @@
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const app = express();
-
+const mongopass = process.env.MONGOPASSWORD;
 async function main() {
-  const uri =
-    "mongodb+srv://Saurabh:<Password>@freecluster-hlxpp.mongodb.net/test?retryWrites=true&w=majority";
+  const uri = `mongodb+srv://Saurabh:${mongopass}@freecluster-hlxpp.mongodb.net/test?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -129,6 +128,7 @@ async function updateListingByName(client, listingName, updateValues) {
   console.log(`${results.modifiedCount} documents(s) was/were updated`);
 }
 
+//Update or Insert data depending on collection having data or not
 async function upsertListingByName(client, listingName, updateValues) {
   const result = await client
     .db("sample_airbnb")
